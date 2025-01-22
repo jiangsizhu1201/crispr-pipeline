@@ -1,0 +1,39 @@
+bump_version: null
+lint:
+  files_exist:
+  - conf/igenomes.config
+  - conf/igenomes_ignored.config
+  - assets/multiqc_config.yml
+  - nextflow_schema.json
+  - conf/igenomes.config
+  - conf/igenomes_ignored.config
+  - assets/multiqc_config.yml
+  - nextflow_schema.json
+  files_unchanged:
+  - .github/CONTRIBUTING.md
+  - assets/sendmail_template.txt
+  - .github/CONTRIBUTING.md
+  - assets/sendmail_template.txt
+  multiqc_config: false
+  nextflow_config: false
+  schema_description: false
+  schema_lint: false
+  schema_params: false
+nf_core_version: 3.0.2
+org_path: null
+repository_type: pipeline
+template:
+  author: EJ
+  description: crispr pipeline
+  force: true
+  is_nfcore: true
+  name: crispr
+  org: nf-core
+  outdir: .
+  skip_features:
+  - igenomes
+  - multiqc
+  - fastqc
+  - nf_schema
+  version: 1.0.0dev
+update: null
