@@ -1,0 +1,4 @@
+R1_path,R2_path,measurement_sets,Lane,file_modality
+/PHShome/sj1088/scratch/nf-core/nf-core-crispr/example_data/fastq_files/IGVFFI7706SWGW.fastq.gz,/PHShome/sj1088/scratch/nf-core/nf-core-crispr/example_data/fastq_files/IGVFFI7788FDIR.fastq.gz,IGVFDS2628PYOH,1,gRNA
+/PHShome/sj1088/scratch/nf-core/nf-core-crispr/example_data/fastq_files/IGVFFI5460OSRQ.fastq.gz,/PHShome/sj1088/scratch/nf-core/nf-core-crispr/example_data/fastq_files/IGVFFI1587BLSX.fastq.gz,IGVFDS2628PYOH,1,hash
+/PHShome/sj1088/scratch/nf-core/nf-core-crispr/example_data/fastq_files/IGVFFI1946LEGM.fastq.gz,/PHShome/sj1088/scratch/nf-core/nf-core-crispr/example_data/fastq_files/IGVFFI5195OGCL.fastq.gz,IGVFDS2628PYOH,1,scRNA
