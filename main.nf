@@ -15,7 +15,7 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { CRISPR  } from './workflows/crispr'
+include { CRISPR_PIPELINE }  from './workflows/crispr_pipeline'
 include { PIPELINE_INITIALISATION } from './subworkflows/local/utils_nfcore_crispr_pipeline'
 include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_crispr_pipeline'
 /*
@@ -33,13 +33,12 @@ workflow NFCORE_CRISPR {
     samplesheet // channel: samplesheet read in from --input
 
     main:
-
     //
     // WORKFLOW: Run pipeline
     //
-    CRISPR (
+    CRISPR_PIPELINE(
         samplesheet
-    )
+        )
 }
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -62,13 +61,17 @@ workflow {
         params.input
     )
 
+    PIPELINE_INITIALISATION.out.samplesheet.view { meta, fastqs ->
+        "Sample: ${meta.id}, Single-end: ${meta.single_end}, Files: ${fastqs}"
+    }
+
     //
     // WORKFLOW: Run main workflow
     //
     NFCORE_CRISPR (
         PIPELINE_INITIALISATION.out.samplesheet
     )
-    //
+
     // SUBWORKFLOW: Run completion tasks
     //
     PIPELINE_COMPLETION (
@@ -78,7 +81,7 @@ workflow {
         params.outdir,
         params.monochrome_logs,
         params.hook_url,
-        
+
     )
 }
 
