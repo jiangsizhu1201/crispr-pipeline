@@ -56,15 +56,15 @@ workflow process_mudata_pipeline {
     MuData_Doublets = doublets_scrub(MuData.mudata)
 
     Prepare_assignment = prepare_assignment{MuData_Doublets.mudata_doublet}
-    
+
     if (params.assignment_method == "cleanser") {
-        Guide_Assignment = guide_assignment_cleanser(Prepare_assignment.prepare_assignment_mudata, params.THRESHOLD)
+        Guide_Assignment = guide_assignment_cleanser(Prepare_assignment.prepare_assignment_mudata.flatten(), params.THRESHOLD)
         guide_assignment_collected =  Guide_Assignment.guide_assignment_mudata_output.collect()
         Mudata_concat = mudata_concat(guide_assignment_collected)
         }
 
     else if (params.assignment_method == "sceptre") {
-        Guide_Assignment = guide_assignment_sceptre(Prepare_assignment.prepare_assignment_mudata)
+        Guide_Assignment = guide_assignment_sceptre(Prepare_assignment.prepare_assignment_mudata.flatten())
         guide_assignment_collected =  Guide_Assignment.guide_assignment_mudata_output.collect()
         Mudata_concat = mudata_concat(guide_assignment_collected)
         }
