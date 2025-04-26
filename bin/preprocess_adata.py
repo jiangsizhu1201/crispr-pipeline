@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 import argparse
 import scanpy as sc
 import pandas as pd
@@ -54,6 +53,7 @@ def main(adata_rna, gname_rna, min_genes, min_cells, pct_mito, reference):
     adata_rna.var["ribo"] = adata_rna.var['symbol'].str.startswith(("RPS", "RPL"))
 
     # Calculate QC metrics
+    adata_rna.X = adata_rna.X.astype(np.float32)
     sc.pp.calculate_qc_metrics(adata_rna, qc_vars=["mt", "ribo"], inplace=True, log1p=True)
 
     # Plot violin
@@ -71,6 +71,7 @@ def main(adata_rna, gname_rna, min_genes, min_cells, pct_mito, reference):
         x="total_counts",
         y="n_genes_by_counts",
         color="pct_counts_mt",
+        size=0.1,
         save='plot_scrna.png'
     )
 

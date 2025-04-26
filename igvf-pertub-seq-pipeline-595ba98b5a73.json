@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "igvf-pertub-seq-pipeline",
+  "private_key_id": "595ba98b5a7328ae5e5051284270ed1f4f3945ad",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCkPzlFVBMaPAO9\nLwxKkMM69XGjn3wrshZPIIk+bzLnpUDXmlXzuHJJM5ks9ii7dgRUE7rmonfqK4tJ\nC0kq1BUd/yOXTXfA+q/SXzbpmx6fyuUHswscc5730iillE/ac6FKhlb7n3weseoN\nvgm4m0CXtQn9tyRV8N17d66GjfQ3rFaih4SaMkHRq7JI3IBChUH3oKcaX2L/QfZ3\nptpVfgfoCT64pViHZzLilQMHWcNe4oXEQFGIXiDhYP/p6ylHnF13viZzV0kX47P5\nV/zylq6ht7uGKBxEIISxfK44QtQyqsTi4gBYbtw2e8ziPyCCOX4HiHhqkEThlc83\nlBNdugZJAgMBAAECggEAEIpSElJsVreAKY9GiG8kogLcA1Nzyz4KHhoo3Wc7CUtB\n3j8rdGROP2NEA9xJmiXr5gBTUZeUm49FXcFBCIrxZ3htVUwsCPyV3onP0LME4KhW\nQTIS0TYu5kZn6SjS6S0SK0b1FS497yS77SSxUOxy6EmHLIxCy1QlfHdp1XYP3S1D\nEyWD2Evm/bjz2RrKCnq+nUoZKo214D7yyvJfDJ34cjWAQbvSrv4YjkcmjurCLA7o\nlGj+ZyJE6WyxrNzSV+yNsr2DFSy3qMcceoym2VCSIlKNIYz0BRs84Tvtdd5QPuNd\nYDXpErRLsi8gTU8ncvi6dGK/FQtyoJiGrrWJ0i+a8wKBgQDl13VCD9rqLURzy4qW\njdIdz9LwuiWxuBLcnZPojXYTt3hu44L2fH03FJq5qTjn+QgrpUC2JQQSUXybnuOu\nj4qFXfQVfubSYAVEiAAJRtuVYgtQnUGOUd3dC7Z6M7DFTv6ewCGrBTNszKmR7QWF\npnK46OfcoKz1F4+Q3mJtj0Y55wKBgQC28KKFwYCVSSlBu47ORzau/GdMca9kv9Sj\nLMjt00rAlkxHnCMwFVFmOGMMeRf9hQ/ZdYH4fUTdDAtywlZf13x4UC0TP8MYz4Nc\nsEX/HWXz3esb0mFiFI16p1BZQAlCJBiyINbsW6eJgzjNMB1bSqdrJPsfo9qzSZAL\nCNjg0kuYTwKBgQDM8CS51vFXxS04ItFcFPC5bEmmJBTgNkV7OXZc8WXLhth3550q\nsy3jIxgjW+RF0yOZ5yugPbk3rDjzeeWCDLNy36d4U0L1anDH/owpuWip9lYod0+w\n2wZ8xqjapaSFCj62xpI+r9B+vq6kUzeNSDEa93FmpE4T7AIzJleVYR85GQKBgQCh\n/kncKXIkP6nB5ETbkqHwp98NCSpoC5pOeAzg1BZAnZakXrWmEWqIGuxSkjRVMWvM\ng0p48Ox21QCaOU5lBhrZKx4PCopHQRIwlIMXGkA6h0t20n+ba1mwv9Hdhl/saqxX\np87Jc4vSsBkvUSjduyivLwsUhHLYCg78RnRN+Mop7wKBgQDStdZLqal+dsjhpy2u\nNFR5axj4PoopZnHuihbn9rFye7UBfXTQ7sKduZhT82a9eIKfPf2LNj3/mKRMI6ra\nMfT/WNOAPQqp7dpd1VsGrZPv6RRyw9CVOCU6UOacjf9BJTDdKIRjr6TWV88q3gLF\nh95VmdW7Ohhs6LE30+dDyiWVLg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "sjiang@igvf-pertub-seq-pipeline.iam.gserviceaccount.com",
+  "client_id": "109681622096672502882",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/sjiang%40igvf-pertub-seq-pipeline.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

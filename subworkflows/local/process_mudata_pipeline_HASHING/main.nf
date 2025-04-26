@@ -47,7 +47,7 @@ workflow process_mudata_pipeline_HASHING {
         concat_anndata_hashing
         )
 
-    Demultiplex = demultiplex(Hashing_Filtered.hashing_filtered_anndata)
+    Demultiplex = demultiplex(Hashing_Filtered.hashing_filtered_anndata.flatten())
 
     hashing_demux_anndata_collected =Demultiplex.hashing_demux_anndata.collect()
     hashing_demux_anndata_collected.view()
@@ -77,13 +77,13 @@ workflow process_mudata_pipeline_HASHING {
     Prepare_assignment = prepare_assignment{MuData.mudata}
 
     if (params.assignment_method == "cleanser") {
-        Guide_Assignment = guide_assignment_cleanser(Prepare_assignment.prepare_assignment_mudata, params.THRESHOLD)
+        Guide_Assignment = guide_assignment_cleanser(Prepare_assignment.prepare_assignment_mudata.flatten(), params.THRESHOLD)
         guide_assignment_collected =  Guide_Assignment.guide_assignment_mudata_output.collect()
         Mudata_concat = mudata_concat(guide_assignment_collected)
         }
 
     else if (params.assignment_method == "sceptre") {
-        Guide_Assignment = guide_assignment_sceptre(Prepare_assignment.prepare_assignment_mudata)
+        Guide_Assignment = guide_assignment_sceptre(Prepare_assignment.prepare_assignment_mudata.flatten())
         guide_assignment_collected =  Guide_Assignment.guide_assignment_mudata_output.collect()
         Mudata_concat = mudata_concat(guide_assignment_collected)
         }
