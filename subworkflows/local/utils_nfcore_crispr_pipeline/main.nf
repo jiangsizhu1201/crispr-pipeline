@@ -60,24 +60,14 @@ workflow PIPELINE_INITIALISATION {
         .fromPath(params.input)
         .splitCsv(header: true, strip: true)
         .map { row ->
-            // Create a meta object with all required information
-            def meta = [
-                id: "sample_${row.file_modality}_${row.measurement_sets}_${row.Lane}",
-                single_end: false,
-                modality: row.file_modality,
-                measurement_sets: row.measurement_sets,
-                lane: row.Lane
-            ]
-
-            // Return structured tuple with meta and file paths
-            [ meta, row.R1_path, row.R2_path ]
+            [[id:row.sample], row.fastq_1, row.fastq_2]
         }
         .map {
-            meta, r1_path, r2_path ->
-                if (!r2_path) {
-                    return [ meta.id, meta + [ single_end:true ], [ r1_path ] ]
+            meta, fastq_1, fastq_2 ->
+                if (!fastq_2) {
+                    return [ meta.id, meta + [ single_end:true ], [ fastq_1 ] ]
                 } else {
-                    return [ meta.id, meta + [ single_end:false ], [ r1_path, r2_path ] ]
+                    return [ meta.id, meta + [ single_end:false ], [ fastq_1, fastq_2 ] ]
                 }
         }
         .groupTuple()
@@ -110,7 +100,7 @@ workflow PIPELINE_COMPLETION {
     outdir          //    path: Path to output directory where results will be published
     monochrome_logs // boolean: Disable ANSI colour codes in log output
     hook_url        //  string: hook URL for notifications
-
+    
 
     main:
     summary_params = [:]
@@ -171,8 +161,8 @@ def toolCitationText() {
     // Uncomment function in methodsDescriptionText to render in MultiQC report
     def citation_text = [
             "Tools used in the workflow included:",
-
-
+            
+            
             "."
         ].join(' ').trim()
 
@@ -184,8 +174,8 @@ def toolBibliographyText() {
     // Can use ternary operators to dynamically construct based conditions, e.g. params["run_xyz"] ? "<li>Author (2023) Pub name, Journal, DOI</li>" : "",
     // Uncomment function in methodsDescriptionText to render in MultiQC report
     def reference_text = [
-
-
+            
+            
         ].join(' ').trim()
 
     return reference_text
