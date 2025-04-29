@@ -18,7 +18,7 @@ workflow prepare_mapping_pipeline {
 
     // Prepare covariate list from the samples channel
     covariate_list = ch_samples
-        .map { meta, reads ->
+        .map { meta, _reads ->
             [meta.measurement_sets, meta.lane]
         }
         .unique()

@@ -40,18 +40,16 @@ workflow CRISPR_PIPELINE {
     // Parse the samplesheet and create channels for each modality
     ch_samples = ch_samplesheet.map { meta, fastqs ->
         // Modify meta to include all necessary information
-        def new_meta = meta + [
-            modality: meta.modality.toLowerCase(),
-            measurement_sets: meta.measurement_sets,
-            lane: meta.lane
-        ]
-        [new_meta, fastqs]
+        meta.modality = meta.modality.toLowerCase()
+        [meta, fastqs]
     }
 
-    ch_rna = ch_samples.filter { meta, fastqs -> meta.modality == 'scrna' }
+    ch_rna = ch_samples.filter { meta, _fastqs -> meta.modality == 'scrna' }
     ch_rna.view()
-    ch_guide = ch_samples.filter { meta, fastqs -> meta.modality == 'grna' }
-    ch_hash = ch_samples.filter { meta, fastqs -> meta.modality == 'hash' }
+    ch_guide = ch_samples.filter { meta, _fastqs -> meta.modality == 'grna' }
+    ch_guide.view()
+    ch_hash = ch_samples.filter { meta, _fastqs -> meta.modality == 'hash' }
+    ch_hash.view()
 
     // Run seqSpecCheck pipeline
     if (params.DATASET_HASHING == "true") {
