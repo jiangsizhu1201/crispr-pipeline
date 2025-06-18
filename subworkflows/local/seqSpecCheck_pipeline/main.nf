@@ -17,7 +17,7 @@ workflow guideWorkflow {
     guide_seqSpecCheck = seqSpecCheck(
         ch_guide_split.map { meta, r1, r2 -> r1 },  // R1 channel
         ch_guide_split.map { meta, r1, r2 -> r2 },  // R2 channel
-        file(params.guide_metadata),
+        file(params.METADATA_sgRNA),
         'guide'
     )
 

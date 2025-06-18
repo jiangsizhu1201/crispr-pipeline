@@ -12,12 +12,12 @@ workflow mapping_rna_pipeline {
 
     main:
     SeqSpecResult = seqSpecParser(
-        file("${params.seqspecs_directory}/${params.scRNA_seqspec_yaml}"),
-        file(params.seqspecs_directory),
+        file(params.SEQUENCE_PARSING_scRNA_seqspec_yaml),
+        file(params.SEQUENCE_PARSING_barcode_list),
         'rna'
     )
 
-    DownloadRefResult = downloadReference(params.transcriptome)
+    DownloadRefResult = downloadReference(params.REFERENCE_transcriptome)
 
     MappingOut = mappingscRNA(
         ch_rna,

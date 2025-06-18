@@ -50,7 +50,7 @@ workflow {
 
     main:
     //
-    // SUBWORKFLOW: Run initialisation tasks
+    // Run initialisation tasks
     //
     PIPELINE_INITIALISATION (
         params.version,
@@ -58,7 +58,7 @@ workflow {
         params.monochrome_logs,
         args,
         params.outdir,
-        params.input
+        params.input //updated_samplesheet
     )
 
     PIPELINE_INITIALISATION.out.samplesheet.view { meta, fastqs ->

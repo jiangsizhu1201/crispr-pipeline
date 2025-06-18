@@ -12,12 +12,12 @@ workflow mapping_guide_pipeline {
 
     main:
     SeqSpecResult = seqSpecParser(
-        file("${params.seqspecs_directory}/${params.Guides_seqspec_yaml}"),
-        file(params.seqspecs_directory),
+        file(params.SEQUENCE_PARSING_sgRNA_seqspec_yaml),
+        file(params.SEQUENCE_PARSING_barcode_list),
         'guide'
     )
 
-    GuideRef = createGuideRef(file(params.guide_metadata))
+    GuideRef = createGuideRef(file(params.METADATA_sgRNA))
 
     MappingOut = mappingGuide(
         ch_guide,

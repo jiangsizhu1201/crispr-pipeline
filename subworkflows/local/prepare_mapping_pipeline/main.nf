@@ -1,7 +1,5 @@
 nextflow.enable.dsl=2
 
-include { skipGenomeDownload } from '../../../modules/local/skipGenomeDownload'
-include { downloadGenome } from '../../../modules/local/downloadGenome'
 include { prepare_covariate } from '../../../modules/local/prepare_covariate'
 
 workflow prepare_mapping_pipeline {
@@ -9,13 +7,6 @@ workflow prepare_mapping_pipeline {
     ch_samples
 
     main:
-    if (file(params.genome_local_path).exists()) {
-        Genome = skipGenomeDownload(file(params.genome_local_path))
-    }
-    else {
-        Genome = downloadGenome(params.genome_download_path)
-    }
-
     // Prepare covariate list from the samples channel
     covariate_list = ch_samples
         .map { meta, _reads ->
@@ -35,7 +26,6 @@ workflow prepare_mapping_pipeline {
     Prepare_covariate = prepare_covariate(covariate_list)
 
     emit:
-    genome = Genome.genome
     parsed_covariate_file =  Prepare_covariate.parsed_covariate_file
     covariate_string =  Prepare_covariate.covariate_string
 }

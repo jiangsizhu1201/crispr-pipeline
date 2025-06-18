@@ -8,17 +8,17 @@ include { anndata_concat } from '../../../modules/local/anndata_concat'
 
 workflow mapping_hashing_pipeline {
     take:
-    ch_hash              
+    ch_hash
     parsed_covariate_file
 
     main:
     SeqSpecResult = seqSpecParser(
-        file("${params.seqspecs_directory}/${params.Hash_seqspec_yaml}"),
-        file(params.seqspecs_directory),
+        file(params.SEQUENCE_PARSING_hash_seqspec_yaml),
+        file(params.SEQUENCE_PARSING_barcode_list),
         'hashing'
     )
 
-    HashingRef = createHashingRef(file(params.hashing_metadata))
+    HashingRef = createHashingRef(file(params.METADATA_hash))
 
     MappingOut = mappingHashing(
         ch_hash,

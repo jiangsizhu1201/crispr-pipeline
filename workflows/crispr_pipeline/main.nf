@@ -52,7 +52,7 @@ workflow CRISPR_PIPELINE {
     ch_hash.view()
 
     // Run seqSpecCheck pipeline
-    if (params.DATASET_HASHING == "true") {
+    if (params.ENABLE_DATA_HASHING == "true") {
         seqSpecCheck_pipeline_HASHING(ch_guide.first(), ch_hash.first())
     } else {
         seqSpecCheck_pipeline(ch_guide.first())
@@ -71,7 +71,7 @@ workflow CRISPR_PIPELINE {
         prepare_mapping_pipeline.out.parsed_covariate_file
         )
 
-    if (params.DATASET_HASHING == "true") {
+    if (params.ENABLE_DATA_HASHING == "true") {
         mapping_hashing_pipeline(
             ch_hash,
             prepare_mapping_pipeline.out.parsed_covariate_file

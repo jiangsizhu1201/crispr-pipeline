@@ -10,11 +10,11 @@ workflow evaluation_pipeline {
     inference_mudata
 
     main:
-    if (params.user_central_nodes == 'undefined') {
-        Evaluation = evaluation_undefined_plot(inference_mudata, gencode_gtf, params.central_nodes_num)
+    if (params.NETWORK_custom_central_nodes == 'undefined') {
+        Evaluation = evaluation_undefined_plot(inference_mudata, gencode_gtf, params.NETWORK_central_nodes_num)
     }
     else {
-        Evaluation = evaluation_plot(inference_mudata, params.user_central_nodes, gencode_gtf)
+        Evaluation = evaluation_plot(inference_mudata, params.NETWORK_custom_central_nodes, gencode_gtf)
     }
 
     emit:

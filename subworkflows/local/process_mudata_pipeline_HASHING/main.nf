@@ -36,10 +36,10 @@ workflow process_mudata_pipeline_HASHING {
     Preprocessed_AnnData = PreprocessAnnData(
         concat_anndata_rna,
         trans_out_dir.flatten().first(),
-        params.min_genes,
-        params.min_cells,
-        params.pct_mito,
-        params.transcriptome
+        params.QC_min_genes_per_cell,
+        params.QC_min_cells_per_gene,
+        params.QC_pct_mito,
+        params.REFERENCE_transcriptome
         )
 
     Hashing_Filtered = filter_hashing(
@@ -57,62 +57,62 @@ workflow process_mudata_pipeline_HASHING {
 
     Hashing_Concat = hashing_concat(hashing_demux_anndata_collected, hashing_demux_unfiltered_anndata_collected)
 
-    if (file(params.gtf_local_path).exists()) {
-        GTF_Reference = skipGTFDownload(file(params.gtf_local_path))
+    if (file(params.REFERENCE_gtf_local_path).exists()) {
+        GTF_Reference = skipGTFDownload(file(params.REFERENCE_gtf_local_path))
     }
     else {
-        GTF_Reference = downloadGTF(params.gtf_download_path)
+        GTF_Reference = downloadGTF(params.REFERENCE_gtf_download_path)
     }
 
     MuData = CreateMuData_HASHING(
         Preprocessed_AnnData.filtered_anndata_rna,
         concat_anndata_guide,
         Hashing_Concat.concatenated_hashing_demux,
-        file(params.guide_metadata),
+        file(params.METADATA_sgRNA),
         GTF_Reference.gencode_gtf,
-        params.moi,
-        params.capture_method
+        params.Multiplicity_of_infection,
+        params.GUIDE_ASSIGNMENT_capture_method
         )
 
     Prepare_assignment = prepare_assignment{MuData.mudata}
 
-    if (params.assignment_method == "cleanser") {
-        Guide_Assignment = guide_assignment_cleanser(Prepare_assignment.prepare_assignment_mudata.flatten(), params.THRESHOLD)
+    if (params.GUIDE_ASSIGNMENT_method == "cleanser") {
+        Guide_Assignment = guide_assignment_cleanser(Prepare_assignment.prepare_assignment_mudata.flatten(), params.GUIDE_ASSIGNMENT_cleanser_probability_threshold)
         guide_assignment_collected =  Guide_Assignment.guide_assignment_mudata_output.collect()
         Mudata_concat = mudata_concat(guide_assignment_collected)
         }
 
-    else if (params.assignment_method == "sceptre") {
+    else if (params.GUIDE_ASSIGNMENT_method == "sceptre") {
         Guide_Assignment = guide_assignment_sceptre(Prepare_assignment.prepare_assignment_mudata.flatten())
         guide_assignment_collected =  Guide_Assignment.guide_assignment_mudata_output.collect()
         Mudata_concat = mudata_concat(guide_assignment_collected)
         }
 
-    if (params.inference_option == 'predefined_pairs') {
+    if (params.INFERENCE_target_guide_pairing_strategy == 'predefined_pairs') {
         PrepareInference = prepare_user_guide_inference(
             Mudata_concat.concat_mudata,
-            file(params.user_inference)
+            file(params.INFERENCE_predefined_pairs_to_test)
         )}
-    else if (params.inference_option == 'by_distance') {
+    else if (params.INFERENCE_target_guide_pairing_strategy == 'by_distance') {
         PrepareInference = prepare_guide_inference(
             Mudata_concat.concat_mudata,
             GTF_Reference.gencode_gtf,
-            params.distance_from_center
+            params.INFERENCE_max_target_distance_bp
         )}
-    else if (params.inference_option == 'all_by_all') {
+    else if (params.INFERENCE_target_guide_pairing_strategy == 'all_by_all') {
         PrepareInference = prepare_all_guide_inference(
             Mudata_concat.concat_mudata,
             GTF_Reference.gencode_gtf
         )}
 
-    if (params.inference_method == "sceptre"){
+    if (params.INFERENCE_method == "sceptre"){
         TestResults = inference_sceptre(PrepareInference.mudata_inference_input, covariate_string)
-        GuideInference = inference_mudata(TestResults.test_results, PrepareInference.mudata_inference_input, params.inference_method)
+        GuideInference = inference_mudata(TestResults.test_results, PrepareInference.mudata_inference_input, params.INFERENCE_method)
     }
-    else if (params.inference_method == "perturbo"){
-        GuideInference = inference_perturbo(PrepareInference.mudata_inference_input, params.inference_method)
+    else if (params.INFERENCE_method == "perturbo"){
+        GuideInference = inference_perturbo(PrepareInference.mudata_inference_input, params.INFERENCE_method)
     }
-    else if (params.inference_method == "sceptre,perturbo") {
+    else if (params.INFERENCE_method == "sceptre,perturbo") {
         SceptreResults = inference_sceptre(PrepareInference.mudata_inference_input, covariate_string)
         PerturboResults = inference_perturbo(PrepareInference.mudata_inference_input,  "perturbo")
         GuideInference = mergedResults(SceptreResults.test_results, PerturboResults.inference_mudata)
