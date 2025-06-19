@@ -8,12 +8,14 @@ include { anndata_concat } from '../../../modules/local/anndata_concat'
 workflow mapping_rna_pipeline {
     take:
     ch_rna
+    ch_rna_seqspec
+    ch_barcode_onlist
     parsed_covariate_file  // file: parsed covariate file from prepare_mapping_pipeline
 
     main:
     SeqSpecResult = seqSpecParser(
-        file(params.SEQUENCE_PARSING_scRNA_seqspec_yaml),
-        file(params.SEQUENCE_PARSING_barcode_list),
+        ch_rna_seqspec,
+        ch_barcode_onlist,
         'rna'
     )
 

@@ -8,12 +8,14 @@ include { anndata_concat } from '../../../modules/local/anndata_concat'
 workflow mapping_guide_pipeline {
     take:
     ch_guide
+    ch_guide_seqspec
+    ch_barcode_onlist
     parsed_covariate_file
 
     main:
     SeqSpecResult = seqSpecParser(
-        file(params.SEQUENCE_PARSING_sgRNA_seqspec_yaml),
-        file(params.SEQUENCE_PARSING_barcode_list),
+        ch_guide_seqspec,
+        ch_barcode_onlist,
         'guide'
     )
 

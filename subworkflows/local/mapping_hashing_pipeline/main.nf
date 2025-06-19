@@ -9,12 +9,14 @@ include { anndata_concat } from '../../../modules/local/anndata_concat'
 workflow mapping_hashing_pipeline {
     take:
     ch_hash
+    ch_hash_seqspec
+    ch_barcode_onlist
     parsed_covariate_file
 
     main:
     SeqSpecResult = seqSpecParser(
-        file(params.SEQUENCE_PARSING_hash_seqspec_yaml),
-        file(params.SEQUENCE_PARSING_barcode_list),
+        ch_hash_seqspec,
+        ch_barcode_onlist,
         'hashing'
     )
 
